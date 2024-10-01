@@ -1,6 +1,12 @@
 (function () {
   const Chatbot = {
-    init: function () {
+    init: function (options) {
+      const iframeSrc = options.iframeSrc || "https://default-iframe-url.com";
+      const buttonImage =
+        options.buttonImage ||
+        "https://default-button-image-url.com/button.png";
+      const popupMessage = options.popupMessage || "I'm your default guide!";
+
       // Chatbot Button
       const button = document.createElement("button");
       button.style.position = "fixed";
@@ -14,7 +20,7 @@
       button.style.zIndex = "9999";
       button.style.backgroundSize = "cover";
       button.style.backgroundPosition = "center";
-      button.style.backgroundImage = "url('https://res.cloudinary.com/deh3lmenn/image/upload/v1727747370/wally-modified_jm0flm.png')";
+      button.style.backgroundImage = `url('${buttonImage}')`; // Use dynamic button image
       button.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.3)";
       document.body.appendChild(button);
 
@@ -32,41 +38,89 @@
       document.body.appendChild(iframeContainer);
 
       const iframe = document.createElement("iframe");
-      iframe.src = "https://turai-nsml2.ondigitalocean.app/bot/13c5f751f01b0cada63a33acf445b9d0144979e8dad09738790d46bac87650ce";
+      iframe.src = iframeSrc;
       iframe.style.width = "100%";
       iframe.style.height = "100%";
       iframe.style.border = "none";
       iframe.style.borderRadius = "8px";
-      
-      // Add these lines to hide the scroll bar
-      iframe.style.overflow = "hidden";  
-      
       iframeContainer.appendChild(iframe);
 
-      // Speech Bubble
+      // Fancy Speech Bubble
       const bubble = document.createElement("div");
+      bubble.style.display = "block";
       bubble.style.position = "fixed";
       bubble.style.bottom = "100px";
       bubble.style.right = "16px";
       bubble.style.width = "250px";
-      bubble.style.backgroundColor = "white";
-      bubble.style.padding = "12px";
-      bubble.style.borderRadius = "8px";
-      bubble.style.boxShadow = "0 0 15px rgba(0, 0, 0, 0.3)";
+      bubble.style.background =
+        "linear-gradient(135deg, white 0%, #333333 100%)";
+      bubble.style.display = "block";
+      bubble.style.position = "fixed";
+      bubble.style.bottom = "100px";
+      bubble.style.right = "16px";
+      bubble.style.width = "250px";
+      bubble.style.background = "white"; // Keep background white
+      bubble.style.padding = "24px"; // Increased padding
+      bubble.style.borderRadius = "12px";
+      bubble.style.boxShadow = "0 0 20px rgba(255, 105, 135, 0.6)";
       bubble.style.fontFamily = "'Roboto', sans-serif";
-      bubble.style.fontSize = "14px";
+      bubble.style.fontSize = "16px"; // Larger font size
       bubble.style.color = "#333";
-      bubble.style.opacity = "0"; // Start hidden
-      bubble.style.transition = "opacity 1s ease-in"; // Fade-in effect
+      bubble.style.opacity = "0";
       bubble.style.zIndex = "9997";
+      bubble.style.transition = "all 0.3s ease";
       bubble.innerHTML = `
-        Got a burning question? Or just bored?<br>
-        I'm Wally. Ask me anything - I'm basically Russ and Joey's brain, but faster.
-        <div style="display:block; text-align:right; margin-top:10px; cursor:pointer; width:24px; height:24px; background-color: #f8d7da; border-radius: 50%; position: relative;">
-          <span style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #c82333; font-weight: bold;">&times;</span>
+        ${popupMessage}
+        <div style="
+          display: block;
+          cursor: pointer;
+          width: 28px;
+          height: 28px;
+          background-color: #ff7e79;
+          border-radius: 50%;
+          position: absolute;
+          bottom: 12px;
+          right: 12px;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 10px rgba(255, 105, 135, 0.3);
+        " 
+          onmouseover="this.style.transform='scale(1.2)'; this.style.boxShadow='0 6px 12px rgba(255, 105, 135, 0.5)';" 
+          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 10px rgba(255, 105, 135, 0.3)';">
+          <span style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+          ">&times;</span>
         </div>
       `;
       document.body.appendChild(bubble);
+
+      // Keyframe Animation (CSS via JS)
+      const style = document.createElement("style");
+      style.innerHTML = `
+        @keyframes bounceIn {
+          0% {
+            transform: scale(0.8);
+            opacity: 0;
+          }
+          60% {
+            transform: scale(1.05);
+            opacity: 0.9;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Apply Bounce-In Animation
+      bubble.style.animation = "bounceIn 0.7s ease-in-out forwards";
 
       // Functions to Show/Hide the Bubble
       function fadeInBubble() {
@@ -102,7 +156,7 @@
           fadeInBubble();
         }
       });
-    }
+    },
   };
 
   window.Chatbot = Chatbot;
