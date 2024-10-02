@@ -2,9 +2,7 @@
   const Chatbot = {
     init: function (options) {
       const iframeSrc = options.iframeSrc || "https://default-iframe-url.com";
-      const buttonImage =
-        options.buttonImage ||
-        "https://default-button-image-url.com/button.png";
+      const buttonImage = options.buttonImage || "https://res.cloudinary.com/deh3lmenn/image/upload/v1727747370/wally-modified_jm0flm.png";
       const popupMessage = options.popupMessage || "I'm your default guide!";
 
       // Chatbot Button
