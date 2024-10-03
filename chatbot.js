@@ -5,23 +5,26 @@
       const buttonImage = options.buttonImage || "https://res.cloudinary.com/deh3lmenn/image/upload/v1727747370/wally-modified_jm0flm.png";
       const popupMessage = options.popupMessage || "I'm your default guide!";
 
-      // Chatbot Button
-      const button = document.createElement("button");
-      button.style.position = "fixed";
-      button.style.bottom = "16px";
-      button.style.right = "16px";
-      button.style.width = "75px";
-      button.style.height = "75px";
-      button.style.border = "none";
-      button.style.borderRadius = "50% !important";
-      button.style.cursor = "pointer";
-      button.style.zIndex = "9999";
-      button.style.backgroundSize = "cover";
-      button.style.backgroundPosition = "center";
-      button.style.backgroundImage = `url('${buttonImage}')`; // Use dynamic button image
-      button.style.backgroundColor = "transparent";
-      button.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.3) !important";
-      document.body.appendChild(button);
+      // Chatbot Clickable Image
+      const buttonContainer = document.createElement("div");
+      buttonContainer.style.position = "fixed";
+      buttonContainer.style.bottom = "16px";
+      buttonContainer.style.right = "16px";
+      buttonContainer.style.width = "75px";
+      buttonContainer.style.height = "75px";
+      buttonContainer.style.cursor = "pointer";
+      buttonContainer.style.zIndex = "9999";
+      buttonContainer.style.borderRadius = "50%"; // Ensure the image container is circular
+      buttonContainer.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.3)";
+      document.body.appendChild(buttonContainer);
+
+      const buttonImageElement = document.createElement("img");
+      buttonImageElement.src = buttonImage;
+      buttonImageElement.style.width = "100%";
+      buttonImageElement.style.height = "100%";
+      buttonImageElement.style.borderRadius = "50%"; // Ensure the image is circular
+      buttonImageElement.style.objectFit = "cover";
+      buttonContainer.appendChild(buttonImageElement);
 
       // Chatbot Window
       const iframeContainer = document.createElement("div");
@@ -51,8 +54,7 @@
       bubble.style.bottom = "100px";
       bubble.style.right = "16px";
       bubble.style.width = "250px";
-      bubble.style.background =
-        "linear-gradient(135deg, white 0%, #333333 100%)";
+      bubble.style.background = "linear-gradient(135deg, white 0%, #333333 100%)";
       bubble.style.display = "block";
       bubble.style.position = "fixed";
       bubble.style.bottom = "100px";
@@ -146,7 +148,7 @@
       });
 
       // Toggle Between Chatbot and Bubble
-      button.addEventListener("click", function () {
+      buttonContainer.addEventListener("click", function () {
         if (iframeContainer.style.display === "none") {
           iframeContainer.style.display = "block";
           hideBubbleInstantly();
