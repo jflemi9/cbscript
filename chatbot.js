@@ -13,14 +13,14 @@
       button.style.width = "75px";
       button.style.height = "75px";
       button.style.border = "none";
-      button.style.borderRadius = "50%";
+      button.style.borderRadius = "50% !important";
       button.style.cursor = "pointer";
       button.style.zIndex = "9999";
       button.style.backgroundSize = "cover";
       button.style.backgroundPosition = "center";
       button.style.backgroundImage = `url('${buttonImage}')`; // Use dynamic button image
       button.style.backgroundColor = "transparent";
-      button.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.3)";
+      button.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.3) !important";
       document.body.appendChild(button);
 
       // Chatbot Window
