@@ -19,6 +19,7 @@
       button.style.backgroundSize = "cover";
       button.style.backgroundPosition = "center";
       button.style.backgroundImage = `url('${buttonImage}')`; // Use dynamic button image
+      button.style.backgroundColor = "transparent";
       button.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.3)";
       document.body.appendChild(button);
 
